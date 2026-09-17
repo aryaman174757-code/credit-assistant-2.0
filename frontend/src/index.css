@@ -1,0 +1,274 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root {
+  --bg-primary: #060B18;
+  --bg-panel: rgba(10, 17, 40, 0.75);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+}
+
+html.light, [data-theme="light"] {
+  --bg-primary: #F8FAFC;
+  --bg-panel: #FFFFFF;
+  --border-color: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+html.light .glass-panel {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 12px 30px -10px rgba(37, 99, 235, 0.2);
+}
+
+html.light .glass-panel-hover:hover {
+  border-color: #93C5FD !important;
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.12) !important;
+}
+
+/* =========================================================
+   LIGHT MODE HIGH-CONTRAST TEXT & ELEMENT OVERRIDES
+   ========================================================= */
+
+/* Headings & Base Typography */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+  color: #0F172A !important;
+}
+
+html.light .text-white {
+  color: #0F172A !important;
+}
+
+html.light .text-slate-100,
+html.light .text-slate-200 {
+  color: #1E293B !important;
+}
+
+html.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-400 {
+  color: #64748B !important;
+}
+
+html.light .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Maintain crisp white text on filled primary buttons & badges */
+html.light .bg-blue-600,
+html.light .bg-blue-600 *,
+html.light button.bg-blue-600,
+html.light a.bg-blue-600,
+html.light .bg-blue-500,
+html.light .bg-blue-500 *,
+html.light .bg-emerald-600,
+html.light .bg-emerald-600 *,
+html.light .bg-red-600,
+html.light .bg-red-600 *,
+html.light .bg-amber-600,
+html.light .bg-amber-600 *,
+html.light .bg-indigo-600,
+html.light .bg-indigo-600 *,
+html.light .bg-gradient-to-tr,
+html.light .bg-gradient-to-tr *,
+html.light .bg-gradient-to-r,
+html.light .bg-gradient-to-r *,
+html.light .bg-gradient-to-br,
+html.light .bg-gradient-to-br * {
+  color: #FFFFFF !important;
+}
+
+/* Maintain vibrant theme accents */
+html.light .text-blue-400 {
+  color: #2563EB !important;
+}
+
+html.light .text-emerald-400 {
+  color: #059669 !important;
+}
+
+html.light .text-amber-400 {
+  color: #D97706 !important;
+}
+
+html.light .text-red-400 {
+  color: #DC2626 !important;
+}
+
+html.light .text-purple-400 {
+  color: #7C3AED !important;
+}
+
+/* Form Inputs, Selects & Textareas */
+html.light input:not([type="checkbox"]):not([type="radio"]),
+html.light select,
+html.light textarea {
+  background-color: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+html.light option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+/* Transparent overlays adapted for light mode */
+html.light .bg-white\/5 {
+  background-color: #F1F5F9 !important;
+}
+
+html.light .bg-white\/10 {
+  background-color: #E2E8F0 !important;
+}
+
+html.light .bg-white\/15 {
+  background-color: #CBD5E1 !important;
+}
+
+html.light .bg-white\/20 {
+  background-color: #94A3B8 !important;
+}
+
+html.light .border-white\/5,
+html.light .border-white\/10,
+html.light .border-white\/15,
+html.light .border-white\/20,
+html.light .border-white\/30 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Navy background replacements */
+html.light .bg-navy-950 {
+  background-color: #F8FAFC !important;
+}
+
+html.light .bg-navy-900 {
+  background-color: #FFFFFF !important;
+}
+
+html.light .bg-navy-900\/80,
+html.light .bg-navy-900\/70,
+html.light .bg-navy-900\/50 {
+  background-color: #F1F5F9 !important;
+}
+
+html.light .bg-navy-800 {
+  background-color: #E2E8F0 !important;
+}
+
+/* Sidebar & Navigation */
+html.light aside.glass-panel {
+  background-color: #FFFFFF !important;
+  border-right-color: #E2E8F0 !important;
+}
+
+html.light aside a.text-slate-400:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html.light aside a.text-slate-400:hover svg,
+html.light aside a.text-slate-400:hover span {
+  color: #0F172A !important;
+}
+
+/* Code & Pre Blocks */
+html.light pre,
+html.light code.font-mono {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+/* Charts & SVG Tracks */
+html.light svg path[stroke="rgba(255, 255, 255, 0.08)"],
+html.light svg circle[stroke="rgba(255, 255, 255, 0.08)"] {
+  stroke: #E2E8F0 !important;
+}
+
+html.light svg circle[fill="#FFFFFF"] {
+  fill: #0F172A !important;
+}
+
+html.light .recharts-cartesian-grid line {
+  stroke: #E2E8F0 !important;
+}
+
+html.light .recharts-text {
+  fill: #64748B !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(10, 17, 40, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.6);
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+}
+

@@ -1,0 +1,13 @@
+from app.routers.auth import router as auth_router
+from app.routers.profile import router as profile_router
+from app.routers.ai import router as ai_router
+from app.routers.credit import router as credit_router
+from app.routers.calculator import router as calculator_router
+from app.routers.expenses import router as expenses_router
+from app.routers.ocr import router as ocr_router
+from app.routers.savings import router as savings_router
+from app.routers.fraud import router as fraud_router
+from app.routers.investment import router as investment_router
+from app.routers.family import router as family_router
+from app.routers.whatsapp import router as whatsapp_router
+from app.routers.security import router as security_router
