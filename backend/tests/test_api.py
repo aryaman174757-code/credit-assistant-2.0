@@ -72,3 +72,39 @@ def test_auth_and_protected_routes():
     res_sec = client.get("/api/security/center", headers=headers)
     assert res_sec.status_code == 200
     assert "security_score" in res_sec.json()
+
+def test_register_and_custom_user_flow():
+    import uuid
+    unique_email = f"user_{uuid.uuid4().hex[:8]}@creditassistant.ai"
+    reg_payload = {
+        "full_name": "Aarav Mehta",
+        "email": unique_email,
+        "phone_number": "+91 98765 00000",
+        "password": "strongPassword123"
+    }
+    res_reg = client.post("/api/auth/register", json=reg_payload)
+    assert res_reg.status_code == 200
+    reg_data = res_reg.json()
+    assert "access_token" in reg_data
+    assert reg_data["user"]["email"] == unique_email.lower()
+    assert reg_data["user"]["full_name"] == "Aarav Mehta"
+
+    # Login with new credentials
+    res_login = client.post("/api/auth/login", json={
+        "email": unique_email,
+        "password": "strongPassword123"
+    })
+    assert res_login.status_code == 200
+    token = res_login.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    # Verify /me endpoint
+    res_me = client.get("/api/auth/me", headers=headers)
+    assert res_me.status_code == 200
+    assert res_me.json()["email"] == unique_email.lower()
+
+    # Verify initialized financial profile
+    res_prof = client.get("/api/profile/", headers=headers)
+    assert res_prof.status_code == 200
+    assert res_prof.json()["credit_score"] >= 300
+

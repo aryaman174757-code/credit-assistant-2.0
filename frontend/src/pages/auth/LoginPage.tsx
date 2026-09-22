@@ -29,8 +29,13 @@ export const LoginPage: React.FC = () => {
   };
 
   const handleDemo = async () => {
-    await loginAsDemo();
-    navigate("/dashboard");
+    setLoading(true);
+    try {
+      await loginAsDemo();
+      navigate("/dashboard");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

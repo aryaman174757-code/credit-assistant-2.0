@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { User } from "../types";
-import { api } from "../services/api";
+import { api, DEFAULT_DEMO_USER } from "../services/api";
 
 interface AuthContextType {
   user: User | null;
@@ -16,21 +16,47 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
+  const [user, setUser] = useState<User | null>(() => {
+    const saved = localStorage.getItem("user");
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const initAuth = async () => {
       const storedToken = localStorage.getItem("token");
+      const savedUser = localStorage.getItem("user");
       if (storedToken) {
         try {
           const res = await api.get("/auth/me");
-          setUser(res.data);
-        } catch (err) {
-          localStorage.removeItem("token");
-          setToken(null);
-          setUser(null);
+          if (res.data) {
+            setUser(res.data);
+            localStorage.setItem("user", JSON.stringify(res.data));
+          }
+        } catch {
+          // If network / offline fallback, keep user signed in if cached user exists
+          if (savedUser) {
+            try {
+              setUser(JSON.parse(savedUser));
+            } catch {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              setToken(null);
+              setUser(null);
+            }
+          } else {
+            localStorage.removeItem("token");
+            setToken(null);
+            setUser(null);
+          }
         }
       }
       setIsLoading(false);
@@ -40,12 +66,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = (newToken: string, newUser: User) => {
     localStorage.setItem("token", newToken);
+    localStorage.setItem("user", JSON.stringify(newUser));
     setToken(newToken);
     setUser(newUser);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setToken(null);
     setUser(null);
   };
@@ -56,14 +84,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: "demo@creditassistant.ai",
         password: "password123",
       });
-      login(res.data.access_token, res.data.user);
+      if (res?.data?.access_token && res?.data?.user) {
+        login(res.data.access_token, res.data.user);
+        return;
+      }
     } catch (err) {
-      console.error("Demo login error:", err);
+      console.warn("Demo API login fallback triggered:", err);
     }
+    // Instant fallback guarantee for offline/static deployment
+    login("demo-jwt-token-access-2026", DEFAULT_DEMO_USER);
   };
 
   const updateUser = (updated: User) => {
     setUser(updated);
+    localStorage.setItem("user", JSON.stringify(updated));
   };
 
   return (

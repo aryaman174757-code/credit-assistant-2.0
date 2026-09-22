@@ -228,7 +228,7 @@ class SecuritySession(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    session_token = Column(String(255), index=True, nullable=False)
+    session_token = Column(String(500), index=True, nullable=False)
     device_name = Column(String(100), default="Chrome on Windows 11")
     ip_address = Column(String(100), default="127.0.0.1")
     location = Column(String(100), default="Mumbai, India")

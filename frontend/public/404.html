@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Credit Assistant 2.0</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA redirect: preserves path, query, and hash
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      var repoPath = l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/');
+      var subPath = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
+      var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        repoPath + '/#/' + (subPath ? subPath : '') +
+        (l.search ? '?' + l.search.slice(1) : '') +
+        l.hash;
+      window.location.replace(redirectUrl);
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to Credit Assistant 2.0...</p>
+  </body>
+</html>
