@@ -1,14 +1,22 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-    <script type="module" crossorigin src="./assets/index-D3oRvc1s.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Ch4BHnDW.css">
+    <meta charset="utf-8">
+    <title>Credit Assistant 2.0</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA redirect: preserves path, query, and hash
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      var repoPath = l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/');
+      var subPath = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
+      var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        repoPath + '/#/' + (subPath ? subPath : '') +
+        (l.search ? '?' + l.search.slice(1) : '') +
+        l.hash;
+      window.location.replace(redirectUrl);
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <p>Redirecting to Credit Assistant 2.0...</p>
   </body>
 </html>
